@@ -12,6 +12,7 @@ import (
 	microcli "github.com/micro/cli"
 	microgrpc "github.com/micro/go-grpc"
 	micro "github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/transport/grpc"
 )
 
 const (
@@ -45,7 +46,10 @@ func main() {
 				Destination: &serviceConfig.HoldTime,
 			},
 		),
+	)
 
+	// Init:
+	service.Init(
 		// Register a BeforeStart handler:
 		micro.BeforeStart(func() error {
 
@@ -55,9 +59,6 @@ func main() {
 			return nil
 		}),
 	)
-
-	// Init:
-	service.Init()
 
 	// Register handler:
 	proto.RegisterPongHandler(service.Server(), new(handler.PongHandler))

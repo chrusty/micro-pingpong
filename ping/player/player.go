@@ -6,7 +6,7 @@ import (
 	config "github.com/chrusty/micro-pingpong/ping/config"
 	protopong "github.com/chrusty/micro-pingpong/pong/proto/src/go"
 
-	microgrpc "github.com/micro/go-grpc"
+	micro "github.com/micro/go-micro"
 	logrus "github.com/sirupsen/logrus"
 	context "golang.org/x/net/context"
 )
@@ -16,10 +16,7 @@ var (
 	iteration int32 = 0
 )
 
-func Run(serviceConfig config.Config) {
-
-	// Make a new service (just for the client):
-	service := microgrpc.NewService()
+func Run(serviceConfig config.Config, service micro.Service) {
 
 	// Use the generated client in Pong's proto:
 	pongClient := protopong.NewPongClient("com.cruft.service.pong", service.Client())

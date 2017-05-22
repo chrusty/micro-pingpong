@@ -11,8 +11,10 @@ import (
 	logrus "github.com/sirupsen/logrus"
 
 	microcli "github.com/micro/cli"
+	microapi "github.com/micro/go-api"
 	microgrpc "github.com/micro/go-grpc"
 	micro "github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/transport/grpc"
 )
 
 const (
@@ -46,7 +48,10 @@ func main() {
 				Destination: &serviceConfig.HoldTime,
 			},
 		),
+	)
 
+	// Init:
+	service.Init(
 		// Register a BeforeStart handler:
 		micro.BeforeStart(func() error {
 
@@ -54,17 +59,26 @@ func main() {
 			handler.Initialise(serviceConfig)
 
 			// Start playing pingpong:
-			player.Run(serviceConfig)
+			go player.Run(serviceConfig, service)
 
 			return nil
 		}),
 	)
 
-	// Init:
-	service.Init()
-
 	// Register handler:
 	proto.RegisterPingHandler(service.Server(), new(handler.PingHandler))
+
+	// Register handler (REST):
+	proto.RegisterPingHandler(service.Server(), new(handler.PingHandler), microapi.WithEndpoint(&microapi.Endpoint{
+		// The RPC method
+		Name: "Ping.Ping",
+		// The HTTP paths. This can be a POSIX regex
+		Path: []string{"/ping"},
+		// The HTTP Methods for this endpoint
+		Method: []string{"GET", "POST"},
+		// The API handler to use
+		Handler: microapi.Api,
+	}))
 
 	// Say something:
 	logger.Debug("Starting instance")
