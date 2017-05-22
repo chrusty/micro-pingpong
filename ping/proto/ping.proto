@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.cruft.service.ping;
+
+service Ping {
+        rpc Ping(PingRequest) returns (PingResponse) {}
+}
+
+message PingRequest {
+        int32 iteration = 1;
+}
+
+message PingResponse {
+        string noise = 1;
+        int32 iteration = 2;
+}

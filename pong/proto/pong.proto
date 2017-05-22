@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.cruft.service.pong;
+
+service Pong {
+        rpc Pong(PongRequest) returns (PongResponse) {}
+}
+
+message PongRequest {
+        int32 iteration = 1;
+}
+
+message PongResponse {
+        string noise = 1;
+        int32 iteration = 2;
+}
