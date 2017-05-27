@@ -5,6 +5,7 @@ This is an example of how to use GoMicro's GRPC client & server to play RCP "Pin
 
 ## Instructions
 * Install Go-Micro's protobuf compiler plugin: `go get github.com/micro/protobuf/protoc-gen-go`
+* Run Consul (the default registry, easiest for local development): `docker run -d --net=bridge -p 8500:8500 --name consul consul agent -client=0.0.0.0  -server -bootstrap-expect 1 -data-dir=/tmp/consul`
 * Build ping and pong (`make all` from each directory)
 * Run ping: `./com.cruft.service.ping`
 * Run pong: `./com.cruft.service.pong`
