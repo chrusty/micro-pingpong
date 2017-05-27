@@ -12,7 +12,6 @@ import (
 	microcli "github.com/micro/cli"
 	microgrpc "github.com/micro/go-grpc"
 	micro "github.com/micro/go-micro"
-	_ "github.com/micro/go-plugins/transport/grpc"
 )
 
 const (

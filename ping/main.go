@@ -14,7 +14,6 @@ import (
 	microapi "github.com/micro/go-api"
 	microgrpc "github.com/micro/go-grpc"
 	micro "github.com/micro/go-micro"
-	_ "github.com/micro/go-plugins/transport/grpc"
 )
 
 const (
