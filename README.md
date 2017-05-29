@@ -25,6 +25,6 @@ This is an example of how to use GoMicro's GRPC client & server to play RCP "Pin
 
 
 ## Querying the ping and pong services using CURL:
-* Run the "Micro API" tool: `micro --enable_stats --client=grpc api --namespace=com.cruft.service`
-* Query the pong service: `curl 'http://localhost:8080/pong/pong/pong?iteration=0'`
+* Run the "Micro API" tool: `micro --enable_stats --client=grpc api --handler=rpc`
+* Query the pong service: `curl 'http://localhost:8080/rpc' -d 'service=com.cruft.service.pong' -d 'method=Pong.Pong' -d 'request={"iteration": 9}'`
 * Watch the live stats in the [API stats interface](http://localhost:8080/stats)
